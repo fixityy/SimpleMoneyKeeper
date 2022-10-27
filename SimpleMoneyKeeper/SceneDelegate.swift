@@ -16,7 +16,32 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
-        guard let _ = (scene as? UIWindowScene) else { return }
+        guard let windowScene = (scene as? UIWindowScene) else { return }
+        
+        window = UIWindow(windowScene: windowScene)
+        
+        let backVC = BackViewController()
+        
+        window?.rootViewController = backVC
+        window?.makeKeyAndVisible()
+        
+        let frontVC = FrontViewController()
+        
+        //Disable swipe down gesture
+        frontVC.isModalInPresentation = true
+        
+        
+        if let sheet = frontVC.sheetPresentationController {
+            sheet.detents = [.medium(), .large()]
+            sheet.largestUndimmedDetentIdentifier = .medium
+            sheet.prefersScrollingExpandsWhenScrolledToEdge = true
+            sheet.prefersEdgeAttachedInCompactHeight = false
+            
+            sheet.preferredCornerRadius = 40
+            sheet.widthFollowsPreferredContentSizeWhenEdgeAttached = false
+            sheet.largestUndimmedDetentIdentifier = .large
+        }
+        backVC.present(frontVC, animated: false, completion: nil)
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
@@ -47,7 +72,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // to restore the scene back to its current state.
 
         // Save changes in the application's managed object context when the application transitions to the background.
-        (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
+        
+        let dataStoreManager = DataStoreManager()
+        dataStoreManager.saveContext()
     }
 
 
