@@ -30,7 +30,6 @@ class DateAndChartCollectionView: UICollectionView, UICollectionViewDelegate, UI
         
         isPagingEnabled = true
         showsHorizontalScrollIndicator = false
-        
     }
     
     required init?(coder: NSCoder) {
@@ -51,52 +50,36 @@ class DateAndChartCollectionView: UICollectionView, UICollectionViewDelegate, UI
         CGSize(width: frame.width, height: frame.height)
     }
     
+    //Adding next date to dataSource
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        
         guard let oldIndexPath = collectionView.indexPathsForVisibleItems.first else { return }
-        
-        
-        
+
         if oldIndexPath.row < indexPath.row && (dates.count - (oldIndexPath.row + 1)) == 1 {
             dates.insert(addOrSubtractMonth(month: increaseMonth), at: dates.endIndex)
             increaseMonth += 1
             collectionView.reloadData()
-        } else if oldIndexPath.row > indexPath.row && oldIndexPath.row == 1 {
-            
-            print("Влево \(count)")
-            count += 1
-            print("Old indexPath: \(oldIndexPath)\n New indexPath\(indexPath)")
-
-            
-            
-            collectionView.performBatchUpdates {
-                dates.insert(addOrSubtractMonth(month: decreaseMonth), at: 0)
-                decreaseMonth -= 1
-                collectionView.reloadData()
-                UIView.performWithoutAnimation {
-                    collectionView.insertItems(at: [IndexPath(row: 0, section: 0)])
-                }
-            } completion: { _ in
-                collectionView.scrollToItem(at: IndexPath(row: oldIndexPath.row + 1, section: 0), at: .centeredHorizontally, animated: false)
-            }
-
-
-//            collectionView.scrollToItem(at: IndexPath(row: oldIndexPath.row + 2, section: 0), at: .centeredHorizontally, animated: false)
-            
-            
-//            collectionView.performBatchUpdates {
-//                dates.insert(addOrSubtractMonth(month: decreaseMonth), at: 0)
-//                decreaseMonth -= 1
-//                collectionView.insertItems(at: [IndexPath(row: 1, section: 0)])
-//                collectionView.reloadData()
-//                collectionView.reloadItems(at: [IndexPath(row: 0, section: 0)])
-//            } completion: { _ in
-//                collectionView.scrollToItem(at: IndexPath(row: oldIndexPath.row + 1, section: 0), at: .centeredHorizontally, animated: true)
-//            }
-
         }
+    }
+    
+    //Adding previous date to dataSource
+    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         
-//        print(dates)
-//        collectionView.reloadData()
+        guard let newIndexPath = collectionView.indexPathsForVisibleItems.first else { return }
+        
+        if newIndexPath.row < indexPath.row && newIndexPath.row == 0 {
+            
+            DispatchQueue.global().async { [weak self] in
+                guard let self = self else { return }
+                self.dates.insert(self.addOrSubtractMonth(month: self.decreaseMonth), at: 0)
+                self.decreaseMonth -= 1
+                
+                DispatchQueue.main.async {
+                    collectionView.reloadData()
+                    collectionView.scrollToItem(at: IndexPath(row: newIndexPath.row + 1, section: 0), at: .centeredHorizontally, animated: false)
+                }
+            }
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
