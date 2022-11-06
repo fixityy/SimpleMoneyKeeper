@@ -132,6 +132,10 @@ extension FrontViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         64
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print(fetchResultController.object(at: indexPath))
+    }
 }
 
 //MARK: NSFetchedResultsControllerDelegate

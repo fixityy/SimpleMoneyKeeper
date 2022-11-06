@@ -9,12 +9,31 @@ import UIKit
 
 class BackViewController: UIViewController {
     
+    
+    lazy var dateAndChartCollectionView = DateAndChartCollectionView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = Colors.mainAccentColor
         
+        view.addSubview(dateAndChartCollectionView)
+        makeConstraint()
+        
+        let dates: [Date] = [addOrSubtractMonth(month: -1), addOrSubtractMonth(month: 0), addOrSubtractMonth(month: 1)]
+
+        dateAndChartCollectionView.dates = dates
+        
+        
+        
 //        test()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        dateAndChartCollectionView.scrollToItem(at: IndexPath(row: 1, section: 0), at: .centeredHorizontally, animated: false)
+
     }
     
     private func test() {
@@ -59,6 +78,26 @@ class BackViewController: UIViewController {
         print(array4.sorted(by: <))
         
         d1 < d2 ? print("true") : print("false")
+        
+        
+        print(addOrSubtractMonth(month: 0))
+        print(addOrSubtractMonth(month: 2))
+        print(addOrSubtractMonth(month: -1))
+    }
+    
+    //MARK: temp, delete after
+    func addOrSubtractMonth(month: Int) -> Date {
+        Calendar.current.date(byAdding: .month, value: month, to: Date())!
+    }
+    
+    private func makeConstraint() {
+        NSLayoutConstraint.activate([
+            dateAndChartCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            dateAndChartCollectionView.heightAnchor.constraint(equalToConstant: 300),
+            dateAndChartCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            dateAndChartCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+
+        ])
         
     }
 
