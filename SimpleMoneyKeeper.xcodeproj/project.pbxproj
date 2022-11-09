@@ -21,7 +21,7 @@
 		C793381E29068E4900251635 /* AddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C793381D29068E4900251635 /* AddViewController.swift */; };
 		C7933822290707BB00251635 /* DataStoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7933821290707BB00251635 /* DataStoreManager.swift */; };
 		C7933824290708EE00251635 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7933823290708EE00251635 /* Colors.swift */; };
-		C7E2FA5A2915B81D00359040 /* DateAndChartCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E2FA592915B81D00359040 /* DateAndChartCollectionView.swift */; };
+		C7B38D20291BB0DB0041A4CD /* MainPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B38D1F291BB0DB0041A4CD /* MainPresenter.swift */; };
 		C7E2FA5C2915B84F00359040 /* DateAndChartCollectionViewCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E2FA5B2915B84F00359040 /* DateAndChartCollectionViewCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -44,7 +44,7 @@
 		C793381D29068E4900251635 /* AddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewController.swift; sourceTree = "<group>"; };
 		C7933821290707BB00251635 /* DataStoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStoreManager.swift; sourceTree = "<group>"; };
 		C7933823290708EE00251635 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
-		C7E2FA592915B81D00359040 /* DateAndChartCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateAndChartCollectionView.swift; sourceTree = "<group>"; };
+		C7B38D1F291BB0DB0041A4CD /* MainPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPresenter.swift; sourceTree = "<group>"; };
 		C7E2FA5B2915B84F00359040 /* DateAndChartCollectionViewCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateAndChartCollectionViewCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -140,6 +140,7 @@
 		C79338142904684600251635 /* Presenter */ = {
 			isa = PBXGroup;
 			children = (
+				C7B38D1F291BB0DB0041A4CD /* MainPresenter.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -150,7 +151,6 @@
 				C79337FB2902C50500251635 /* BackViewController.swift */,
 				C79338172904687000251635 /* FrontViewController.swift */,
 				C706B981290AA9790099D150 /* SpentTableViewCell.swift */,
-				C7E2FA592915B81D00359040 /* DateAndChartCollectionView.swift */,
 				C7E2FA5B2915B84F00359040 /* DateAndChartCollectionViewCollectionViewCell.swift */,
 			);
 			path = View;
@@ -272,9 +272,9 @@
 				C7E2FA5C2915B84F00359040 /* DateAndChartCollectionViewCollectionViewCell.swift in Sources */,
 				C706B9792909A6F70099D150 /* Spent+CoreDataClass.swift in Sources */,
 				C706B982290AA9790099D150 /* SpentTableViewCell.swift in Sources */,
+				C7B38D20291BB0DB0041A4CD /* MainPresenter.swift in Sources */,
 				C79337FC2902C50500251635 /* BackViewController.swift in Sources */,
 				C793381E29068E4900251635 /* AddViewController.swift in Sources */,
-				C7E2FA5A2915B81D00359040 /* DateAndChartCollectionView.swift in Sources */,
 				C706B97A2909A6F70099D150 /* Spent+CoreDataProperties.swift in Sources */,
 				C79338182904687000251635 /* FrontViewController.swift in Sources */,
 				C7933822290707BB00251635 /* DataStoreManager.swift in Sources */,
