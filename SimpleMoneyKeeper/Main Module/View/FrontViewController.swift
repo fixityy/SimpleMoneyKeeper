@@ -14,8 +14,11 @@ class FrontViewController: UIViewController {
     
     lazy var fetchResultController: NSFetchedResultsController<Spent> = {
         let fetchRequest = Spent.fetchRequest()
-        let sortDescriptor = NSSortDescriptor(key: #keyPath(Spent.dateStr), ascending: true)
+        let sortDescriptor = NSSortDescriptor(key: #keyPath(Spent.date), ascending: true)
         fetchRequest.sortDescriptors = [sortDescriptor]
+        
+//        let predicate = NSPredicate(format: "dateSort == %@", "\(Date.now.formatted(.dateTime.year(.defaultDigits).month(.defaultDigits)))")
+//        fetchRequest.predicate = predicate
         
         let fetchResultController = NSFetchedResultsController<Spent>(fetchRequest: fetchRequest, managedObjectContext: dataStoreManager.context, sectionNameKeyPath: #keyPath(Spent.dateStr), cacheName: nil)
         
@@ -52,6 +55,9 @@ class FrontViewController: UIViewController {
         super.viewDidLoad()
         
         setupView()
+        
+        let predicate = NSPredicate(format: "dateSort == %@", "\(Date.now.formatted(.dateTime.year(.defaultDigits).month(.defaultDigits)))")
+//        fetchResultController.fetchRequest.predicate = predicate
     }
     
     private func setupView() {

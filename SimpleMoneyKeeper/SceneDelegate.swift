@@ -20,7 +20,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         window = UIWindow(windowScene: windowScene)
         
-        let backVC = BackViewController()
+        let mainPresenter = MainPresenter()
+        
+        let backVC = BackViewController(with: mainPresenter)
         
         window?.rootViewController = backVC
         window?.makeKeyAndVisible()
