@@ -12,12 +12,13 @@ class FrontViewController: UIViewController {
     
     let dataStoreManager = DataStoreManager()
     
+    //MARK: проблема в том, что не правильно формируются секции. Идет сортировка не по сорт дискриптору, а по названию секции (стринговый формат). Причем при первичном добавлении все правильно, а при загрузки из кор даты появляется эта проблема.
     lazy var fetchResultController: NSFetchedResultsController<Spent> = {
         let fetchRequest = Spent.fetchRequest()
         let sortDescriptor = NSSortDescriptor(key: #keyPath(Spent.date), ascending: true)
         fetchRequest.sortDescriptors = [sortDescriptor]
         
-//        let predicate = NSPredicate(format: "dateSort == %@", "\(Date.now.formatted(.dateTime.year(.defaultDigits).month(.defaultDigits)))")
+//        let predicate = NSPredicate(format: "dateSort == %@", "\(Date().localDate().formatted(.dateTime.year(.defaultDigits).month(.defaultDigits)))")
 //        fetchRequest.predicate = predicate
         
         let fetchResultController = NSFetchedResultsController<Spent>(fetchRequest: fetchRequest, managedObjectContext: dataStoreManager.context, sectionNameKeyPath: #keyPath(Spent.dateStr), cacheName: nil)
@@ -55,9 +56,7 @@ class FrontViewController: UIViewController {
         super.viewDidLoad()
         
         setupView()
-        
-        let predicate = NSPredicate(format: "dateSort == %@", "\(Date.now.formatted(.dateTime.year(.defaultDigits).month(.defaultDigits)))")
-//        fetchResultController.fetchRequest.predicate = predicate
+
     }
     
     private func setupView() {
@@ -66,6 +65,8 @@ class FrontViewController: UIViewController {
         view.addSubview(addButton)
         makeConstraints()
         
+//        let predicate = NSPredicate(format: "dateSort == %@", "\(Date().localDate().formatted(.dateTime.year(.defaultDigits).month(.defaultDigits)))")
+//        fetchResultController.fetchRequest.predicate = predicate
         
         do {
             try fetchResultController.performFetch()
@@ -90,12 +91,22 @@ class FrontViewController: UIViewController {
     
     @objc private func addButtonTapped() {
         
-        let randomNumber = Double.random(in: -350000...350000)
-        
+        let randomNumber = Double.random(in: -2650000...2650000)
+
         let date = Date(timeIntervalSinceNow: randomNumber)
-        
+
         dataStoreManager.addNewSpent(date: date, category: "Car", categoryIcon: "car", spentAmount: Int64.random(in: 100...350000))
         tableView.reloadData()
+        
+//        let predicate = NSPredicate(format: "dateSort == %@", "\(Date().localDate().formatted(.dateTime.year(.defaultDigits).month(.defaultDigits)))")
+//        self.fetchResultController.fetchRequest.predicate = predicate
+//
+//        do {
+//            try self.fetchResultController.performFetch()
+//        } catch let error {
+//            print(error.localizedDescription)
+//        }
+//        tableView.reloadData()
     }
 }
 
@@ -124,7 +135,9 @@ extension FrontViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return fetchResultController.sections?[section].name
+        let sectionInfo = fetchResultController.sections?[section]
+        let spent = sectionInfo?.objects?.first as? Spent
+        return spent?.dateStr?.formatted(date: .long, time: .omitted)
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {

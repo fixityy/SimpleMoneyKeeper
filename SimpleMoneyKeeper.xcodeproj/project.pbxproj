@@ -22,6 +22,7 @@
 		C7933822290707BB00251635 /* DataStoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7933821290707BB00251635 /* DataStoreManager.swift */; };
 		C7933824290708EE00251635 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7933823290708EE00251635 /* Colors.swift */; };
 		C7B38D20291BB0DB0041A4CD /* MainPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B38D1F291BB0DB0041A4CD /* MainPresenter.swift */; };
+		C7B38D2429228B360041A4CD /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B38D2329228B360041A4CD /* DateExtension.swift */; };
 		C7E2FA5C2915B84F00359040 /* DateAndChartCollectionViewCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E2FA5B2915B84F00359040 /* DateAndChartCollectionViewCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -45,6 +46,7 @@
 		C7933821290707BB00251635 /* DataStoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStoreManager.swift; sourceTree = "<group>"; };
 		C7933823290708EE00251635 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		C7B38D1F291BB0DB0041A4CD /* MainPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPresenter.swift; sourceTree = "<group>"; };
+		C7B38D2329228B360041A4CD /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
 		C7E2FA5B2915B84F00359040 /* DateAndChartCollectionViewCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateAndChartCollectionViewCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -107,6 +109,7 @@
 		C79338102904660700251635 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				C7B38D2329228B360041A4CD /* DateExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -268,6 +271,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C79338022902C50500251635 /* SimpleMoneyKeeper.xcdatamodeld in Sources */,
+				C7B38D2429228B360041A4CD /* DateExtension.swift in Sources */,
 				C7933824290708EE00251635 /* Colors.swift in Sources */,
 				C7E2FA5C2915B84F00359040 /* DateAndChartCollectionViewCollectionViewCell.swift in Sources */,
 				C706B9792909A6F70099D150 /* Spent+CoreDataClass.swift in Sources */,

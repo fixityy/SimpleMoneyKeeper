@@ -2,7 +2,7 @@
 //  Spent+CoreDataProperties.swift
 //  SimpleMoneyKeeper
 //
-//  Created by Roman Belov on 27.10.2022.
+//  Created by Roman Belov on 14.11.2022.
 //
 //
 
@@ -16,13 +16,13 @@ extension Spent {
         return NSFetchRequest<Spent>(entityName: "Spent")
     }
 
-    @NSManaged public var date: Date?
-    @NSManaged public var dateStr: String?
-    @NSManaged public var dateSort: String?
     @NSManaged public var category: String?
     @NSManaged public var categoryIconStr: String?
-    @NSManaged public var spentAmount: Int64
+    @NSManaged public var date: Date?
+    @NSManaged public var dateSort: String?
+    @NSManaged public var dateStr: Date?
     @NSManaged public var note: String?
+    @NSManaged public var spentAmount: Int64
     @NSManaged public var uuid: String?
 
 }

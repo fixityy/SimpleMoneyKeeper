@@ -38,7 +38,17 @@ class DataStoreManager {
         let spent = Spent(context: context)
         
         spent.date = date
-        spent.dateStr = date.formatted(date: .long, time: .omitted)
+//        spent.dateStr = date.formatted(date: .long, time: .omitted)
+        spent.dateStr = {
+            var calendar = Calendar.current
+            if let timeZone = TimeZone(identifier: "UTC") {
+                calendar.timeZone = timeZone
+            }
+            let components = calendar.dateComponents([.year, .month, .day], from: date)
+            let date = calendar.date(from: components)
+            return date!
+
+        }()
         spent.dateSort = date.formatted(.dateTime.year(.defaultDigits).month(.defaultDigits))
         spent.category = category
         spent.categoryIconStr = categoryIcon

@@ -5,7 +5,7 @@
         <attribute name="categoryIconStr" optional="YES" attributeType="String"/>
         <attribute name="date" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="dateSort" optional="YES" attributeType="String"/>
-        <attribute name="dateStr" optional="YES" attributeType="String"/>
+        <attribute name="dateStr" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="note" optional="YES" attributeType="String"/>
         <attribute name="spentAmount" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="uuid" optional="YES" attributeType="String"/>
