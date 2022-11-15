@@ -8,25 +8,9 @@
 import UIKit
 import CoreData
 
-class FrontViewController: UIViewController {
+class FrontViewController: UIViewController, FrontViewProtocol {
     
-    let dataStoreManager = DataStoreManager()
-    
-    //MARK: проблема в том, что не правильно формируются секции. Идет сортировка не по сорт дискриптору, а по названию секции (стринговый формат). Причем при первичном добавлении все правильно, а при загрузки из кор даты появляется эта проблема.
-    lazy var fetchResultController: NSFetchedResultsController<Spent> = {
-        let fetchRequest = Spent.fetchRequest()
-        let sortDescriptor = NSSortDescriptor(key: #keyPath(Spent.date), ascending: true)
-        fetchRequest.sortDescriptors = [sortDescriptor]
-        
-//        let predicate = NSPredicate(format: "dateSort == %@", "\(Date().localDate().formatted(.dateTime.year(.defaultDigits).month(.defaultDigits)))")
-//        fetchRequest.predicate = predicate
-        
-        let fetchResultController = NSFetchedResultsController<Spent>(fetchRequest: fetchRequest, managedObjectContext: dataStoreManager.context, sectionNameKeyPath: #keyPath(Spent.dateStr), cacheName: nil)
-        
-        fetchResultController.delegate = self
-        
-        return fetchResultController
-    }()
+    let presenter: MainPresenterProtocol!
         
     lazy var tableView: UITableView = {
         var table = UITableView()
@@ -51,6 +35,15 @@ class FrontViewController: UIViewController {
         button.addTarget(self, action: #selector(addButtonTapped), for: .touchUpInside)
         return button
     }()
+    
+    init(with presenter: MainPresenterProtocol) {
+        self.presenter = presenter
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,14 +58,9 @@ class FrontViewController: UIViewController {
         view.addSubview(addButton)
         makeConstraints()
         
-//        let predicate = NSPredicate(format: "dateSort == %@", "\(Date().localDate().formatted(.dateTime.year(.defaultDigits).month(.defaultDigits)))")
-//        fetchResultController.fetchRequest.predicate = predicate
-        
-        do {
-            try fetchResultController.performFetch()
-        } catch let error {
-            print(error.localizedDescription)
-        }
+        presenter.setFrontDelegate(delegate: self)
+        presenter.fetchResultController.delegate = self
+        presenter.performFetch()
     }
     
     private func makeConstraints() {
@@ -89,24 +77,18 @@ class FrontViewController: UIViewController {
         ])
     }
     
+    func updateTableView() {
+        tableView.reloadData()
+    }
+    
     @objc private func addButtonTapped() {
         
-        let randomNumber = Double.random(in: -2650000...2650000)
+        let randomNumber = Double.random(in: -12650000...12650000)
 
         let date = Date(timeIntervalSinceNow: randomNumber)
 
-        dataStoreManager.addNewSpent(date: date, category: "Car", categoryIcon: "car", spentAmount: Int64.random(in: 100...350000))
+        presenter.dataStoreManager.addNewSpent(date: date, category: "Car", categoryIcon: "car", spentAmount: Int64.random(in: 100...350000))
         tableView.reloadData()
-        
-//        let predicate = NSPredicate(format: "dateSort == %@", "\(Date().localDate().formatted(.dateTime.year(.defaultDigits).month(.defaultDigits)))")
-//        self.fetchResultController.fetchRequest.predicate = predicate
-//
-//        do {
-//            try self.fetchResultController.performFetch()
-//        } catch let error {
-//            print(error.localizedDescription)
-//        }
-//        tableView.reloadData()
     }
 }
 
@@ -115,36 +97,38 @@ class FrontViewController: UIViewController {
 extension FrontViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return fetchResultController.sections?.count ?? 0
+        return presenter.fetchResultController.sections?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let sectionInfo = fetchResultController.sections?[section]
+        let sectionInfo = presenter.fetchResultController.sections?[section]
         return sectionInfo?.numberOfObjects ?? 0
     }
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: SpentTableViewCell.reuseId, for: indexPath) as! SpentTableViewCell
-        if let imageStr = fetchResultController.object(at: indexPath).categoryIconStr, let image = UIImage(systemName: imageStr) {
+        
+        let spent = presenter.presentSpent(index: indexPath)
+        if let imageStr = spent.categoryIconStr, let image = UIImage(systemName: imageStr) {
             cell.categoryIcon.image = image
         }
-        cell.categoryLabel.text = fetchResultController.object(at: indexPath).category
-        cell.amountlabel.text = "\(fetchResultController.object(at: indexPath).spentAmount) \u{20BD}"
+        cell.categoryLabel.text = spent.category
+        cell.amountlabel.text = "\(spent.spentAmount) \u{20BD}"
         return cell
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        let sectionInfo = fetchResultController.sections?[section]
+        let sectionInfo = presenter.fetchResultController.sections?[section]
         let spent = sectionInfo?.objects?.first as? Spent
         return spent?.dateStr?.formatted(date: .long, time: .omitted)
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            let object = fetchResultController.object(at: indexPath)
-            dataStoreManager.context.delete(object)
-            dataStoreManager.saveContext()
+            let object = presenter.presentSpent(index: indexPath)
+            presenter.dataStoreManager.context.delete(object)
+            presenter.dataStoreManager.saveContext()
         }
     }
     
@@ -153,7 +137,7 @@ extension FrontViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print(fetchResultController.object(at: indexPath))
+        print(presenter.fetchResultController.object(at: indexPath))
     }
 }
 

@@ -49,6 +49,7 @@ class BackViewController: UIViewController, BackViewProtocol {
         super.viewDidAppear(animated)
         
         dateAndChartCollectionView.scrollToItem(at: IndexPath(row: 1, section: 0), at: .centeredHorizontally, animated: false)
+        presenter.updateFetchResultPredicate(index: 1)
 
     }
     
@@ -112,10 +113,13 @@ extension BackViewController: UICollectionViewDelegate, UICollectionViewDataSour
     func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         
         guard let newIndexPath = collectionView.indexPathsForVisibleItems.first else { return }
-        
+
+//        print(newIndexPath.row)
+                
         if newIndexPath.row < indexPath.row && newIndexPath.row == 0 {
-            
             presenter.addPreviousDate(at: newIndexPath)
+        } else {
+            presenter.updateFetchResultPredicate(index: newIndexPath.row)
         }
     }
     

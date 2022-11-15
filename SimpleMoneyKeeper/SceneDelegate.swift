@@ -27,7 +27,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.rootViewController = backVC
         window?.makeKeyAndVisible()
         
-        let frontVC = FrontViewController()
+        let frontVC = FrontViewController(with: mainPresenter)
         
         //Disable swipe down gesture
         frontVC.isModalInPresentation = true

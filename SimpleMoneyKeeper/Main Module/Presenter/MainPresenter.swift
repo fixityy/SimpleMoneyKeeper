@@ -9,7 +9,7 @@ import Foundation
 import CoreData
 
 protocol FrontViewProtocol: AnyObject {
-    
+    func updateTableView()
 }
 
 protocol BackViewProtocol: AnyObject {
@@ -25,6 +25,14 @@ protocol MainPresenterProtocol: AnyObject {
     func addPreviousDate(at newIndexPath: IndexPath)
     func addNextDate()
     func presentDate(at index: Int) -> String
+    
+    var dataStoreManager: DataStoreManager { get }
+    var fetchResultController: NSFetchedResultsController<Spent> { get }
+    
+    func setFrontDelegate(delegate: FrontViewProtocol)
+    func performFetch()
+    func presentSpent(index: IndexPath) -> Spent
+    func updateFetchResultPredicate(index: Int)
 }
 
 class MainPresenter: MainPresenterProtocol {
@@ -42,7 +50,7 @@ class MainPresenter: MainPresenterProtocol {
     }
     
     func addOrSubtractMonth(month: Int) -> Date {
-        Calendar.current.date(byAdding: .month, value: month, to: Date())!
+        Calendar.current.date(byAdding: .month, value: month, to: Date().localDate())!
     }
 
     func addPreviousDate(at newIndexPath: IndexPath) {
@@ -53,14 +61,21 @@ class MainPresenter: MainPresenterProtocol {
             
             DispatchQueue.main.async { 
                 self.backDelegate?.updatePreviosCell(at: newIndexPath)
+                self.updateFetchResultPredicate(index: newIndexPath.row + 1)
             }
         }
     }
     
     func addNextDate() {
-        datesArray.insert(addOrSubtractMonth(month: increaseMonth), at: datesArray.endIndex)
-        increaseMonth += 1
-        backDelegate?.updateNextCell()
+        DispatchQueue.global().async {[weak self] in
+            guard let self = self else { return }
+            self.datesArray.insert(self.addOrSubtractMonth(month: self.increaseMonth), at: self.datesArray.endIndex)
+            self.increaseMonth += 1
+            DispatchQueue.main.async {
+                self.backDelegate?.updateNextCell()
+            }
+        }
+        
     }
     
     func presentDate(at index: Int) -> String{
@@ -69,5 +84,41 @@ class MainPresenter: MainPresenterProtocol {
     
     //MARK: FrontVC Presenter
     
+    weak var frontDelegate: FrontViewProtocol?
     
+    lazy var dataStoreManager = DataStoreManager()
+    
+    lazy var fetchResultController: NSFetchedResultsController<Spent> = {
+        let fetchRequest = Spent.fetchRequest()
+        let sortDescriptor = NSSortDescriptor(key: #keyPath(Spent.date), ascending: true)
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        
+        let fetchResultController = NSFetchedResultsController<Spent>(fetchRequest: fetchRequest, managedObjectContext: dataStoreManager.context, sectionNameKeyPath: #keyPath(Spent.dateStr), cacheName: nil)
+
+        return fetchResultController
+    }()
+    
+    func setFrontDelegate(delegate: FrontViewProtocol) {
+        self.frontDelegate = delegate
+    }
+    
+    func performFetch() {
+        do {
+            try fetchResultController.performFetch()
+        } catch let error {
+            print(error.localizedDescription)
+        }
+    }
+    
+    func presentSpent(index: IndexPath) -> Spent {
+        return fetchResultController.object(at: index)
+    }
+    
+    func updateFetchResultPredicate(index: Int) {
+        let sortPredicate = datesArray[index].formatted(.dateTime.year(.defaultDigits).month(.defaultDigits))
+        let predicate = NSPredicate(format: "dateSort == %@", sortPredicate)
+        fetchResultController.fetchRequest.predicate = predicate
+        performFetch()
+        frontDelegate?.updateTableView()
+    }
 }
