@@ -154,10 +154,14 @@ extension FrontViewController: NSFetchedResultsControllerDelegate {
         let section = IndexSet(integer: sectionIndex)
 
         switch type {
-            case .delete:
-                tableView.deleteSections(section, with: .automatic)
-            case .insert:
-                tableView.insertSections(section, with: .automatic)
+        case .delete:
+            tableView.deleteSections(section, with: .automatic)
+            presenter.reloadBackVCCollectionView()
+            
+        case .insert:
+            tableView.insertSections(section, with: .automatic)
+            presenter.reloadBackVCCollectionView()
+
         default: break
         }
     }
@@ -168,10 +172,12 @@ extension FrontViewController: NSFetchedResultsControllerDelegate {
         case .insert:
             if let indexPath = indexPath {
                 tableView.insertRows(at: [indexPath], with: .automatic)
+                presenter.reloadBackVCCollectionView()
             }
         case .delete:
             if let indexPath = indexPath, tableView.numberOfRows(inSection: indexPath.section) > 1 {
                 tableView.deleteRows(at: [indexPath], with: .automatic)
+                presenter.reloadBackVCCollectionView()
             }
         default:
             break

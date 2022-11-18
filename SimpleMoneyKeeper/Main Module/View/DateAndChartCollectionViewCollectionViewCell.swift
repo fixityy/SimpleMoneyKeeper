@@ -15,10 +15,13 @@ class DateAndChartCollectionViewCollectionViewCell: UICollectionViewCell {
         let chart = PieChartView()
         chart.translatesAutoresizingMaskIntoConstraints = false
                 
-        chart.holeRadiusPercent = 0.60
-        chart.transparentCircleRadiusPercent = 0.65
+        chart.holeRadiusPercent = 0.63
+        chart.transparentCircleRadiusPercent = 0.68
+        chart.drawEntryLabelsEnabled = false
+        chart.rotationEnabled = false
         
         chart.legend.font = UIFont.systemFont(ofSize: 16)
+        chart.legend.textColor = .black
         chart.legend.verticalAlignment = .bottom
         chart.legend.horizontalAlignment = .center
         chart.legend.form = .circle
@@ -26,11 +29,7 @@ class DateAndChartCollectionViewCollectionViewCell: UICollectionViewCell {
         chart.legend.formToTextSpace = 8
 
         chart.extraBottomOffset = -16
-        
-        //Не отображать названия секций
-        chart.drawEntryLabelsEnabled = false
     
-//        chart.highlightPerTapEnabled = false
         return chart
     }()
     

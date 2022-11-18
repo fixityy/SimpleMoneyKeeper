@@ -133,11 +133,14 @@ class MainPresenter: MainPresenterProtocol {
 
         for section in 0..<sectionsCount {
             var spentAmount: Int64 = 0
+            var sectionName = ""
             for object in 0..<sectionInfo[section].numberOfObjects {
                 spentAmount += pieChartFetchResultController.object(at: IndexPath(row: object, section: section)).spentAmount
+                
+                sectionName = pieChartFetchResultController.object(at: IndexPath(row: object, section: section)).category ?? ""
             }
 
-            let entry = PieChartDataEntry(value: Double(spentAmount), label: sectionInfo[section].name)
+            let entry = PieChartDataEntry(value: Double(spentAmount), label: sectionName)
             entries.append(entry)
             monthrTotalSpent += Int(spentAmount)
         }
@@ -199,7 +202,6 @@ class MainPresenter: MainPresenterProtocol {
     }
     
     func updateFetchResultPredicate(index: Int) {
-//        monthrTotalSpent = 0
         let sortPredicate = datesArray[index].formatted(.dateTime.year(.defaultDigits).month(.defaultDigits))
         let predicate = NSPredicate(format: "dateSort == %@", sortPredicate)
         fetchResultController.fetchRequest.predicate = predicate

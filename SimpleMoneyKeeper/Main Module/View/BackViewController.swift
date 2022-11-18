@@ -11,6 +11,7 @@ import Charts
 class BackViewController: UIViewController, BackViewProtocol {
     
     let presenter: MainPresenterProtocol!
+    var pieChartLastHighlited: Highlight?
     
     var dateStr = NSMutableAttributedString()
     
@@ -45,7 +46,6 @@ class BackViewController: UIViewController, BackViewProtocol {
         super.viewDidLoad()
         
         setupViews()
-        presenter.setBackDelegate(delegate: self)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -74,6 +74,8 @@ class BackViewController: UIViewController, BackViewProtocol {
         makeConstraint()
         
         presenter.performFetchPieChart()
+        presenter.setBackDelegate(delegate: self)
+
         dateStr = presenter.presentDate(at: 1)
     }
     
@@ -105,6 +107,8 @@ extension BackViewController: UICollectionViewDelegate, UICollectionViewDataSour
         cell.pieChart.data = presenter.presentPieChartData()
         cell.pieChart.centerAttributedText = presenter.presentDate(at: indexPath.row)
         
+        dateStr = presenter.presentDate(at: indexPath.row)
+
         return cell
     }
     
@@ -139,6 +143,11 @@ extension BackViewController: UICollectionViewDelegate, UICollectionViewDataSour
         } else {
             presenter.updateFetchResultPredicate(index: newIndexPath.row)
         }
+        
+        guard let cell = cell as? DateAndChartCollectionViewCollectionViewCell else { return }
+        cell.pieChart.highlightValues(nil)
+        cell.pieChart.centerAttributedText = dateStr
+        pieChartLastHighlited = nil
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
@@ -148,14 +157,27 @@ extension BackViewController: UICollectionViewDelegate, UICollectionViewDataSour
 
 extension BackViewController: ChartViewDelegate {
     func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
-        guard let pieChart = chartView as? PieChartView else { return }
+        guard let pieChart = chartView as? PieChartView, let pieChartDataEntry = entry as? PieChartDataEntry else { return }
         
-        let str = String(Int(entry.y.rounded())) + "  \u{20BD}"
-        
-        let centerText = NSMutableAttributedString(string: str)
-        centerText.setAttributes([.font : UIFont.systemFont(ofSize: 18)], range: NSRange(location: 0, length: centerText.length))
-        
-        pieChart.centerAttributedText = centerText
+
+        if highlight == pieChartLastHighlited {
+            //unhighlight all sections
+            pieChart.highlightValues(nil)
+            pieChart.centerAttributedText = dateStr
+            pieChartLastHighlited = nil
+        } else {
+            pieChartLastHighlited = highlight
+            
+            let str = (pieChartDataEntry.label ?? "") + ":\n" + String(Int(pieChartDataEntry.y.rounded())) + "  \u{20BD}"
+            
+            let paragraph = NSMutableParagraphStyle()
+            paragraph.alignment = .center
+            
+            let centerText = NSMutableAttributedString(string: str)
+            centerText.setAttributes([.font : UIFont.systemFont(ofSize: 18), .paragraphStyle: paragraph], range: NSRange(location: 0, length: centerText.length))
+            
+            pieChart.centerAttributedText = centerText
+        }
     }
     
     func chartValueNothingSelected(_ chartView: ChartViewBase) {
