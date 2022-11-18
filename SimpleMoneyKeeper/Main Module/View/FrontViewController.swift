@@ -68,7 +68,7 @@ class FrontViewController: UIViewController, FrontViewProtocol {
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 40),
-            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             
             addButton.heightAnchor.constraint(equalToConstant: 64),
             addButton.widthAnchor.constraint(equalToConstant: 64),
@@ -83,12 +83,16 @@ class FrontViewController: UIViewController, FrontViewProtocol {
     
     @objc private func addButtonTapped() {
         
+        let categorise = [["Car", "car"], ["Products", "cart"], ["Gifts", "gift"], ["Entertainment", "film"]]
+        
+        let arrRandomIndex = Int.random(in: 0...3)
         let randomNumber = Double.random(in: -12650000...12650000)
 
         let date = Date(timeIntervalSinceNow: randomNumber)
 
-        presenter.dataStoreManager.addNewSpent(date: date, category: "Car", categoryIcon: "car", spentAmount: Int64.random(in: 100...350000))
+        presenter.dataStoreManager.addNewSpent(date: date, category: categorise[arrRandomIndex][0], categoryIcon: categorise[arrRandomIndex][1], spentAmount: Int64.random(in: 100...350000))
         tableView.reloadData()
+        presenter.reloadBackVCCollectionView()
     }
 }
 

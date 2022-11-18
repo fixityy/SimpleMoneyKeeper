@@ -7,6 +7,8 @@
 
 import Foundation
 import CoreData
+import Charts
+import UIKit
 
 protocol FrontViewProtocol: AnyObject {
     func updateTableView()
@@ -15,16 +17,21 @@ protocol FrontViewProtocol: AnyObject {
 protocol BackViewProtocol: AnyObject {
     func updatePreviosCell(at newIndexPath: IndexPath)
     func updateNextCell()
+    func reloadCollectionView()
 }
 
 protocol MainPresenterProtocol: AnyObject {
     var datesArray: [Date] { get set }
+    var monthrTotalSpent: Int { get set }
     
     func setBackDelegate(delegate: BackViewProtocol)
     func addOrSubtractMonth(month: Int) -> Date
     func addPreviousDate(at newIndexPath: IndexPath)
     func addNextDate()
-    func presentDate(at index: Int) -> String
+    func presentDate(at index: Int) -> NSMutableAttributedString
+    func performFetchPieChart()
+    func presentPieChartData() -> PieChartData
+    func reloadBackVCCollectionView()
     
     var dataStoreManager: DataStoreManager { get }
     var fetchResultController: NSFetchedResultsController<Spent> { get }
@@ -39,6 +46,23 @@ class MainPresenter: MainPresenterProtocol {
     
     //MARK: BackVC Presenter
     weak var backDelegate: BackViewProtocol?
+    
+    var monthrTotalSpent = 0
+    
+    lazy var pieChartFetchResultController: NSFetchedResultsController<Spent> = {
+        let fetchRequest = Spent.fetchRequest()
+        let sortDescriptor = NSSortDescriptor(key: #keyPath(Spent.spentAmount), ascending: true)
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        
+        let sortPredicate = Date().localDate().formatted(.dateTime.year(.defaultDigits).month(.defaultDigits))
+        let predicate = NSPredicate(format: "dateSort == %@", sortPredicate)
+        
+        fetchRequest.predicate = predicate
+        
+        let fetchResultController = NSFetchedResultsController<Spent>(fetchRequest: fetchRequest, managedObjectContext: dataStoreManager.context, sectionNameKeyPath: #keyPath(Spent.category), cacheName: nil)
+
+        return fetchResultController
+    }()
     
     lazy var datesArray = [addOrSubtractMonth(month: -1), addOrSubtractMonth(month: 0), addOrSubtractMonth(month: 1)]
 
@@ -78,8 +102,63 @@ class MainPresenter: MainPresenterProtocol {
         
     }
     
-    func presentDate(at index: Int) -> String{
-        datesArray[index].formatted()
+    func presentDate(at index: Int) -> NSMutableAttributedString{
+        let str = datesArray[index].formatted(.dateTime.month(.wide)).capitalizeFirstLetter() + "\n" + datesArray[index].formatted(.dateTime.year(.defaultDigits)).capitalizeFirstLetter() + "\n" + "\n" + String(monthrTotalSpent) + "  \u{20BD}"
+        
+        let paragraph = NSMutableParagraphStyle()
+        paragraph.alignment = .center
+        
+        let centerText = NSMutableAttributedString(string: str)
+        centerText.setAttributes([.font : UIFont.systemFont(ofSize: 18), .paragraphStyle: paragraph], range: NSRange(location: 0, length: centerText.length))
+        
+        return centerText
+    }
+    
+    func performFetchPieChart() {
+        do {
+            try pieChartFetchResultController.performFetch()
+        } catch let error {
+            print(error.localizedDescription)
+        }
+    }
+    
+    func presentPieChartData() -> PieChartData {
+        
+        monthrTotalSpent = 0
+        
+        guard let sectionsCount = pieChartFetchResultController.sections?.count else { return PieChartData() }
+        guard let sectionInfo = pieChartFetchResultController.sections else { return PieChartData() }
+
+        var entries = [PieChartDataEntry]()
+
+        for section in 0..<sectionsCount {
+            var spentAmount: Int64 = 0
+            for object in 0..<sectionInfo[section].numberOfObjects {
+                spentAmount += pieChartFetchResultController.object(at: IndexPath(row: object, section: section)).spentAmount
+            }
+
+            let entry = PieChartDataEntry(value: Double(spentAmount), label: sectionInfo[section].name)
+            entries.append(entry)
+            monthrTotalSpent += Int(spentAmount)
+        }
+        
+        let set = PieChartDataSet(entries: entries, label: "")
+        
+        set.colors = ChartColorTemplates.vordiplom()
+        
+        //Отступы между секцими
+        set.sliceSpace = 2
+        
+        //Не отображать значения секций
+        set.drawValuesEnabled = false
+        
+        let data = PieChartData(dataSet: set)
+        
+        return data
+    }
+    
+    func reloadBackVCCollectionView() {
+        backDelegate?.reloadCollectionView()
     }
     
     //MARK: FrontVC Presenter
@@ -92,6 +171,11 @@ class MainPresenter: MainPresenterProtocol {
         let fetchRequest = Spent.fetchRequest()
         let sortDescriptor = NSSortDescriptor(key: #keyPath(Spent.date), ascending: true)
         fetchRequest.sortDescriptors = [sortDescriptor]
+        
+        let sortPredicate = Date().localDate().formatted(.dateTime.year(.defaultDigits).month(.defaultDigits))
+        let predicate = NSPredicate(format: "dateSort == %@", sortPredicate)
+        
+        fetchRequest.predicate = predicate
         
         let fetchResultController = NSFetchedResultsController<Spent>(fetchRequest: fetchRequest, managedObjectContext: dataStoreManager.context, sectionNameKeyPath: #keyPath(Spent.dateStr), cacheName: nil)
 
@@ -115,10 +199,14 @@ class MainPresenter: MainPresenterProtocol {
     }
     
     func updateFetchResultPredicate(index: Int) {
+//        monthrTotalSpent = 0
         let sortPredicate = datesArray[index].formatted(.dateTime.year(.defaultDigits).month(.defaultDigits))
         let predicate = NSPredicate(format: "dateSort == %@", sortPredicate)
         fetchResultController.fetchRequest.predicate = predicate
+        pieChartFetchResultController.fetchRequest.predicate = predicate
         performFetch()
+        performFetchPieChart()
         frontDelegate?.updateTableView()
+        backDelegate?.reloadCollectionView()
     }
 }

@@ -6,10 +6,13 @@
 //
 
 import UIKit
+import Charts
 
 class BackViewController: UIViewController, BackViewProtocol {
     
     let presenter: MainPresenterProtocol!
+    
+    var dateStr = NSMutableAttributedString()
     
     lazy var dateAndChartCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -49,8 +52,6 @@ class BackViewController: UIViewController, BackViewProtocol {
         super.viewDidAppear(animated)
         
         dateAndChartCollectionView.scrollToItem(at: IndexPath(row: 1, section: 0), at: .centeredHorizontally, animated: false)
-        presenter.updateFetchResultPredicate(index: 1)
-
     }
     
     func updatePreviosCell(at newIndexPath: IndexPath) {
@@ -62,19 +63,25 @@ class BackViewController: UIViewController, BackViewProtocol {
         dateAndChartCollectionView.reloadData()
     }
     
+    func reloadCollectionView() {
+        dateAndChartCollectionView.reloadData()
+    }
+    
     private func setupViews() {
         view.backgroundColor = Colors.mainAccentColor
         
         view.addSubview(dateAndChartCollectionView)
         makeConstraint()
         
+        presenter.performFetchPieChart()
+        dateStr = presenter.presentDate(at: 1)
     }
     
     //MARK: Make correct height anchor for all displays, depending on frontVC height
     private func makeConstraint() {
         NSLayoutConstraint.activate([
             dateAndChartCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            dateAndChartCollectionView.heightAnchor.constraint(equalToConstant: 300),
+            dateAndChartCollectionView.heightAnchor.constraint(equalToConstant: (view.frame.size.height / 2.55)),
             dateAndChartCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             dateAndChartCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
 
@@ -91,7 +98,13 @@ extension BackViewController: UICollectionViewDelegate, UICollectionViewDataSour
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = dateAndChartCollectionView.dequeueReusableCell(withReuseIdentifier: DateAndChartCollectionViewCollectionViewCell.reuseID, for: indexPath) as! DateAndChartCollectionViewCollectionViewCell
-        cell.dateLabel.text = presenter.presentDate(at: indexPath.row)
+                
+        cell.pieChart.delegate = self
+        
+        cell.pieChart.holeColor = Colors.mainAccentColor
+        cell.pieChart.data = presenter.presentPieChartData()
+        cell.pieChart.centerAttributedText = presenter.presentDate(at: indexPath.row)
+        
         return cell
     }
     
@@ -101,18 +114,23 @@ extension BackViewController: UICollectionViewDelegate, UICollectionViewDataSour
     
     //Adding next date to dataSource
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        
+                
         guard let oldIndexPath = collectionView.indexPathsForVisibleItems.first else { return }
 
         if oldIndexPath.row < indexPath.row && (presenter.datesArray.count - (oldIndexPath.row + 1)) == 1 {
             presenter.addNextDate()
         }
+        
+//        guard let cell = cell as? DateAndChartCollectionViewCollectionViewCell else { return }
+//        cell.pieChart.animate(xAxisDuration: 1)
     }
     
     //Adding previous date to dataSource
     func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         
         guard let newIndexPath = collectionView.indexPathsForVisibleItems.first else { return }
+
+        dateStr = presenter.presentDate(at: newIndexPath.row)
 
 //        print(newIndexPath.row)
                 
@@ -125,6 +143,25 @@ extension BackViewController: UICollectionViewDelegate, UICollectionViewDataSour
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         0
+    }
+}
+
+extension BackViewController: ChartViewDelegate {
+    func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
+        guard let pieChart = chartView as? PieChartView else { return }
+        
+        let str = String(Int(entry.y.rounded())) + "  \u{20BD}"
+        
+        let centerText = NSMutableAttributedString(string: str)
+        centerText.setAttributes([.font : UIFont.systemFont(ofSize: 18)], range: NSRange(location: 0, length: centerText.length))
+        
+        pieChart.centerAttributedText = centerText
+    }
+    
+    func chartValueNothingSelected(_ chartView: ChartViewBase) {
+        guard let pieChart = chartView as? PieChartView else { return }
+        
+        pieChart.centerAttributedText = dateStr
     }
 }
 
