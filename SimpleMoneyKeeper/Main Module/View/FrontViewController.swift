@@ -118,7 +118,7 @@ extension FrontViewController: UITableViewDelegate, UITableViewDataSource {
             cell.categoryIcon.image = image
         }
         cell.categoryLabel.text = spent.category
-        cell.amountlabel.text = "\(spent.spentAmount) \u{20BD}"
+        cell.amountlabel.text = "\(Int(spent.spentAmount).stringWithSpaceEveryThreeDigits()) \u{20BD}"
         return cell
     }
     

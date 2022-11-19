@@ -10,8 +10,9 @@
 		C706B9792909A6F70099D150 /* Spent+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C706B9772909A6F70099D150 /* Spent+CoreDataClass.swift */; };
 		C706B97A2909A6F70099D150 /* Spent+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C706B9782909A6F70099D150 /* Spent+CoreDataProperties.swift */; };
 		C706B982290AA9790099D150 /* SpentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C706B981290AA9790099D150 /* SpentTableViewCell.swift */; };
+		C768656B2928CD8800A84FD9 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C768656A2928CD8800A84FD9 /* StringExtension.swift */; };
 		C77B2A41292799000001BD14 /* Charts in Frameworks */ = {isa = PBXBuildFile; productRef = C77B2A40292799000001BD14 /* Charts */; };
-		C77B2A432927BA750001BD14 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C77B2A422927BA750001BD14 /* StringExtension.swift */; };
+		C77B2A472928CBEE0001BD14 /* IntegerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C77B2A462928CBEE0001BD14 /* IntegerExtension.swift */; };
 		C79337F82902C50500251635 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C79337F72902C50500251635 /* AppDelegate.swift */; };
 		C79337FA2902C50500251635 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C79337F92902C50500251635 /* SceneDelegate.swift */; };
 		C79337FC2902C50500251635 /* BackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C79337FB2902C50500251635 /* BackViewController.swift */; };
@@ -32,7 +33,8 @@
 		C706B9772909A6F70099D150 /* Spent+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Spent+CoreDataClass.swift"; sourceTree = "<group>"; };
 		C706B9782909A6F70099D150 /* Spent+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Spent+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		C706B981290AA9790099D150 /* SpentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpentTableViewCell.swift; sourceTree = "<group>"; };
-		C77B2A422927BA750001BD14 /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
+		C768656A2928CD8800A84FD9 /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
+		C77B2A462928CBEE0001BD14 /* IntegerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntegerExtension.swift; sourceTree = "<group>"; };
 		C79337F42902C50500251635 /* SimpleMoneyKeeper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SimpleMoneyKeeper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C79337F72902C50500251635 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C79337F92902C50500251635 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -114,7 +116,8 @@
 			isa = PBXGroup;
 			children = (
 				C7B38D2329228B360041A4CD /* DateExtension.swift */,
-				C77B2A422927BA750001BD14 /* StringExtension.swift */,
+				C77B2A462928CBEE0001BD14 /* IntegerExtension.swift */,
+				C768656A2928CD8800A84FD9 /* StringExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -283,9 +286,9 @@
 			files = (
 				C79338022902C50500251635 /* SimpleMoneyKeeper.xcdatamodeld in Sources */,
 				C7B38D2429228B360041A4CD /* DateExtension.swift in Sources */,
-				C77B2A432927BA750001BD14 /* StringExtension.swift in Sources */,
 				C7933824290708EE00251635 /* Colors.swift in Sources */,
 				C7E2FA5C2915B84F00359040 /* DateAndChartCollectionViewCollectionViewCell.swift in Sources */,
+				C768656B2928CD8800A84FD9 /* StringExtension.swift in Sources */,
 				C706B9792909A6F70099D150 /* Spent+CoreDataClass.swift in Sources */,
 				C706B982290AA9790099D150 /* SpentTableViewCell.swift in Sources */,
 				C7B38D20291BB0DB0041A4CD /* MainPresenter.swift in Sources */,
@@ -294,6 +297,7 @@
 				C706B97A2909A6F70099D150 /* Spent+CoreDataProperties.swift in Sources */,
 				C79338182904687000251635 /* FrontViewController.swift in Sources */,
 				C7933822290707BB00251635 /* DataStoreManager.swift in Sources */,
+				C77B2A472928CBEE0001BD14 /* IntegerExtension.swift in Sources */,
 				C79337F82902C50500251635 /* AppDelegate.swift in Sources */,
 				C79337FA2902C50500251635 /* SceneDelegate.swift in Sources */,
 			);

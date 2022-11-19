@@ -168,7 +168,7 @@ extension BackViewController: ChartViewDelegate {
         } else {
             pieChartLastHighlited = highlight
             
-            let str = (pieChartDataEntry.label ?? "") + ":\n" + String(Int(pieChartDataEntry.y.rounded())) + "  \u{20BD}"
+            let str = (pieChartDataEntry.label ?? "") + ":\n" + Int(pieChartDataEntry.y.rounded()).stringWithSpaceEveryThreeDigits() + "  \u{20BD}"
             
             let paragraph = NSMutableParagraphStyle()
             paragraph.alignment = .center

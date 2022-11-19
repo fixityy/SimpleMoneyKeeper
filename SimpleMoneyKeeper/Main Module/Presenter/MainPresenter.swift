@@ -51,7 +51,7 @@ class MainPresenter: MainPresenterProtocol {
     
     lazy var pieChartFetchResultController: NSFetchedResultsController<Spent> = {
         let fetchRequest = Spent.fetchRequest()
-        let sortDescriptor = NSSortDescriptor(key: #keyPath(Spent.spentAmount), ascending: true)
+        let sortDescriptor = NSSortDescriptor(key: #keyPath(Spent.category), ascending: true)
         fetchRequest.sortDescriptors = [sortDescriptor]
         
         let sortPredicate = Date().localDate().formatted(.dateTime.year(.defaultDigits).month(.defaultDigits))
@@ -103,7 +103,7 @@ class MainPresenter: MainPresenterProtocol {
     }
     
     func presentDate(at index: Int) -> NSMutableAttributedString{
-        let str = datesArray[index].formatted(.dateTime.month(.wide)).capitalizeFirstLetter() + "\n" + datesArray[index].formatted(.dateTime.year(.defaultDigits)).capitalizeFirstLetter() + "\n" + "\n" + String(monthrTotalSpent) + "  \u{20BD}"
+        let str = datesArray[index].formatted(.dateTime.month(.wide)).capitalizeFirstCharacter() + "\n" + datesArray[index].formatted(.dateTime.year(.defaultDigits)) + "\n" + "\n" + monthrTotalSpent.stringWithSpaceEveryThreeDigits() + "  \u{20BD}"
         
         let paragraph = NSMutableParagraphStyle()
         paragraph.alignment = .center
