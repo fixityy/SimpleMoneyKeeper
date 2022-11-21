@@ -16,7 +16,6 @@
 		C79337F82902C50500251635 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C79337F72902C50500251635 /* AppDelegate.swift */; };
 		C79337FA2902C50500251635 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C79337F92902C50500251635 /* SceneDelegate.swift */; };
 		C79337FC2902C50500251635 /* BackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C79337FB2902C50500251635 /* BackViewController.swift */; };
-		C79337FF2902C50500251635 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C79337FD2902C50500251635 /* Main.storyboard */; };
 		C79338022902C50500251635 /* SimpleMoneyKeeper.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C79338002902C50500251635 /* SimpleMoneyKeeper.xcdatamodeld */; };
 		C79338042902C50600251635 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C79338032902C50600251635 /* Assets.xcassets */; };
 		C79338072902C50600251635 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C79338052902C50600251635 /* LaunchScreen.storyboard */; };
@@ -39,12 +38,10 @@
 		C79337F72902C50500251635 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C79337F92902C50500251635 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		C79337FB2902C50500251635 /* BackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackViewController.swift; sourceTree = "<group>"; };
-		C79337FE2902C50500251635 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C79338012902C50500251635 /* SimpleMoneyKeeper.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SimpleMoneyKeeper.xcdatamodel; sourceTree = "<group>"; };
 		C79338032902C50600251635 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C79338062902C50600251635 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C79338082902C50600251635 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C793380E2902C6F600251635 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main.strings; sourceTree = "<group>"; };
 		C793380F2902C6F600251635 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		C79338172904687000251635 /* FrontViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrontViewController.swift; sourceTree = "<group>"; };
 		C793381D29068E4900251635 /* AddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewController.swift; sourceTree = "<group>"; };
@@ -103,7 +100,6 @@
 				C79338102904660700251635 /* Extensions */,
 				C79337F72902C50500251635 /* AppDelegate.swift */,
 				C79337F92902C50500251635 /* SceneDelegate.swift */,
-				C79337FD2902C50500251635 /* Main.storyboard */,
 				C79338032902C50600251635 /* Assets.xcassets */,
 				C79338052902C50600251635 /* LaunchScreen.storyboard */,
 				C79338082902C50600251635 /* Info.plist */,
@@ -273,7 +269,6 @@
 			files = (
 				C79338072902C50600251635 /* LaunchScreen.storyboard in Resources */,
 				C79338042902C50600251635 /* Assets.xcassets in Resources */,
-				C79337FF2902C50500251635 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -306,15 +301,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		C79337FD2902C50500251635 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				C79337FE2902C50500251635 /* Base */,
-				C793380E2902C6F600251635 /* ru */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		C79338052902C50600251635 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -455,10 +441,9 @@
 				INFOPLIST_FILE = SimpleMoneyKeeper/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -484,10 +469,9 @@
 				INFOPLIST_FILE = SimpleMoneyKeeper/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

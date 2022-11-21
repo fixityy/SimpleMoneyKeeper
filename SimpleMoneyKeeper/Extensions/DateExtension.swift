@@ -8,6 +8,7 @@
 import Foundation
 
 extension Date {
+    //Get date, according to user's location UTC
     func localDate() -> Date {
         let nowUTC = Date()
         let timeZoneOffset = Double(TimeZone.current.secondsFromGMT(for: nowUTC))

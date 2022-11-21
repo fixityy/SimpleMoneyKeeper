@@ -51,7 +51,7 @@ class BackViewController: UIViewController, BackViewProtocol {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        dateAndChartCollectionView.scrollToItem(at: IndexPath(row: 1, section: 0), at: .centeredHorizontally, animated: false)
+        dateAndChartCollectionView.scrollToItem(at: IndexPath(row: 5, section: 0), at: .centeredHorizontally, animated: false)
     }
     
     func updatePreviosCell(at newIndexPath: IndexPath) {

@@ -47,6 +47,17 @@ class MainPresenter: MainPresenterProtocol {
     //MARK: BackVC Presenter
     weak var backDelegate: BackViewProtocol?
     
+//    lazy var datesArray = [addOrSubtractMonth(month: -1), addOrSubtractMonth(month: 0), addOrSubtractMonth(month: 1)]
+    
+    lazy var datesArray: [Date] = {
+        var array = [Date]()
+        for i in -1...1 {
+            array.append(addOrSubtractMonth(month: i))
+        }
+        return array
+    }()
+
+    
     var monthrTotalSpent = 0
     
     lazy var pieChartFetchResultController: NSFetchedResultsController<Spent> = {
@@ -64,8 +75,6 @@ class MainPresenter: MainPresenterProtocol {
         return fetchResultController
     }()
     
-    lazy var datesArray = [addOrSubtractMonth(month: -1), addOrSubtractMonth(month: 0), addOrSubtractMonth(month: 1)]
-
     var decreaseMonth = -2
     var increaseMonth = 2
     
