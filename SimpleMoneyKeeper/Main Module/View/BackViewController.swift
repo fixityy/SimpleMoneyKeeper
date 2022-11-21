@@ -59,10 +59,6 @@ class BackViewController: UIViewController, BackViewProtocol {
         dateAndChartCollectionView.scrollToItem(at: IndexPath(row: newIndexPath.row + 1, section: 0), at: .centeredHorizontally, animated: false)
     }
     
-    func updateNextCell() {
-        dateAndChartCollectionView.reloadData()
-    }
-    
     func reloadCollectionView() {
         dateAndChartCollectionView.reloadData()
     }
@@ -79,7 +75,6 @@ class BackViewController: UIViewController, BackViewProtocol {
         dateStr = presenter.presentDate(at: 1)
     }
     
-    //MARK: Make correct height anchor for all displays, depending on frontVC height
     private func makeConstraint() {
         NSLayoutConstraint.activate([
             dateAndChartCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -88,11 +83,10 @@ class BackViewController: UIViewController, BackViewProtocol {
             dateAndChartCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
 
         ])
-        
     }
 }
 
-
+//MARK: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout
 extension BackViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         presenter.datesArray.count
@@ -121,7 +115,7 @@ extension BackViewController: UICollectionViewDelegate, UICollectionViewDataSour
                 
         guard let oldIndexPath = collectionView.indexPathsForVisibleItems.first else { return }
 
-        if oldIndexPath.row < indexPath.row && (presenter.datesArray.count - (oldIndexPath.row + 1)) == 1 {
+        if oldIndexPath.row < indexPath.row && (presenter.datesArray.count - (oldIndexPath.row + 1)) == 5 {
             presenter.addNextDate()
         }
         
@@ -138,7 +132,7 @@ extension BackViewController: UICollectionViewDelegate, UICollectionViewDataSour
 
 //        print(newIndexPath.row)
                 
-        if newIndexPath.row < indexPath.row && newIndexPath.row == 0 {
+        if newIndexPath.row < indexPath.row && newIndexPath.row == 4 {
             presenter.addPreviousDate(at: newIndexPath)
         } else {
             presenter.updateFetchResultPredicate(index: newIndexPath.row)
@@ -155,6 +149,7 @@ extension BackViewController: UICollectionViewDelegate, UICollectionViewDataSour
     }
 }
 
+//MARK: ChartViewDelegate
 extension BackViewController: ChartViewDelegate {
     func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
         guard let pieChart = chartView as? PieChartView, let pieChartDataEntry = entry as? PieChartDataEntry else { return }

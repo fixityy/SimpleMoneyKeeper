@@ -16,7 +16,6 @@ protocol FrontViewProtocol: AnyObject {
 
 protocol BackViewProtocol: AnyObject {
     func updatePreviosCell(at newIndexPath: IndexPath)
-    func updateNextCell()
     func reloadCollectionView()
 }
 
@@ -46,18 +45,18 @@ class MainPresenter: MainPresenterProtocol {
     
     //MARK: BackVC Presenter
     weak var backDelegate: BackViewProtocol?
-    
-//    lazy var datesArray = [addOrSubtractMonth(month: -1), addOrSubtractMonth(month: 0), addOrSubtractMonth(month: 1)]
-    
+        
     lazy var datesArray: [Date] = {
         var array = [Date]()
-        for i in -1...1 {
+        for i in -5...5 {
             array.append(addOrSubtractMonth(month: i))
         }
         return array
     }()
-
     
+    var decreaseMonth = -6
+    var increaseMonth = 6
+
     var monthrTotalSpent = 0
     
     lazy var pieChartFetchResultController: NSFetchedResultsController<Spent> = {
@@ -74,9 +73,6 @@ class MainPresenter: MainPresenterProtocol {
 
         return fetchResultController
     }()
-    
-    var decreaseMonth = -2
-    var increaseMonth = 2
     
     func setBackDelegate(delegate: BackViewProtocol) {
         self.backDelegate = delegate
@@ -105,10 +101,17 @@ class MainPresenter: MainPresenterProtocol {
             self.datesArray.insert(self.addOrSubtractMonth(month: self.increaseMonth), at: self.datesArray.endIndex)
             self.increaseMonth += 1
             DispatchQueue.main.async {
-                self.backDelegate?.updateNextCell()
+                self.backDelegate?.reloadCollectionView()
             }
         }
-        
+    }
+    
+    func performFetchPieChart() {
+        do {
+            try pieChartFetchResultController.performFetch()
+        } catch let error {
+            print(error.localizedDescription)
+        }
     }
     
     func presentDate(at index: Int) -> NSMutableAttributedString{
@@ -121,14 +124,6 @@ class MainPresenter: MainPresenterProtocol {
         centerText.setAttributes([.font : UIFont.systemFont(ofSize: 18), .paragraphStyle: paragraph], range: NSRange(location: 0, length: centerText.length))
         
         return centerText
-    }
-    
-    func performFetchPieChart() {
-        do {
-            try pieChartFetchResultController.performFetch()
-        } catch let error {
-            print(error.localizedDescription)
-        }
     }
     
     func presentPieChartData() -> PieChartData {
@@ -158,10 +153,8 @@ class MainPresenter: MainPresenterProtocol {
         
         set.colors = ChartColorTemplates.vordiplom()
         
-        //Отступы между секцими
         set.sliceSpace = 2
         
-        //Не отображать значения секций
         set.drawValuesEnabled = false
         
         let data = PieChartData(dataSet: set)
