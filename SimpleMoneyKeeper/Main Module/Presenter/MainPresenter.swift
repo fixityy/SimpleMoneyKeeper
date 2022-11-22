@@ -39,6 +39,8 @@ protocol MainPresenterProtocol: AnyObject {
     func performFetch()
     func presentSpent(index: IndexPath) -> Spent
     func updateFetchResultPredicate(index: Int)
+    
+    func presentAddSpentVC(viewController: UIViewController)
 }
 
 class MainPresenter: MainPresenterProtocol {
@@ -83,7 +85,7 @@ class MainPresenter: MainPresenterProtocol {
     }
 
     func addPreviousDate(at newIndexPath: IndexPath) {
-        DispatchQueue.global().async { [weak self] in
+        DispatchQueue.global(qos: .userInteractive).async { [weak self] in
             guard let self = self else { return }
             self.datesArray.insert(self.addOrSubtractMonth(month: self.decreaseMonth), at: 0)
             self.decreaseMonth -= 1
@@ -96,7 +98,7 @@ class MainPresenter: MainPresenterProtocol {
     }
     
     func addNextDate() {
-        DispatchQueue.global().async {[weak self] in
+        DispatchQueue.global(qos: .userInteractive).async {[weak self] in
             guard let self = self else { return }
             self.datesArray.insert(self.addOrSubtractMonth(month: self.increaseMonth), at: self.datesArray.endIndex)
             self.increaseMonth += 1
@@ -212,5 +214,11 @@ class MainPresenter: MainPresenterProtocol {
         performFetchPieChart()
         frontDelegate?.updateTableView()
         backDelegate?.reloadCollectionView()
+    }
+    
+    func presentAddSpentVC(viewController: UIViewController) {
+        let addSpentPresenter = AddSpentPresenter()
+        let addSpentVC = AddSpentViewController(with: addSpentPresenter)
+        viewController.present(addSpentVC, animated: true)
     }
 }

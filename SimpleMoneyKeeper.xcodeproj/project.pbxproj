@@ -13,6 +13,8 @@
 		C768656B2928CD8800A84FD9 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C768656A2928CD8800A84FD9 /* StringExtension.swift */; };
 		C77B2A41292799000001BD14 /* Charts in Frameworks */ = {isa = PBXBuildFile; productRef = C77B2A40292799000001BD14 /* Charts */; };
 		C77B2A472928CBEE0001BD14 /* IntegerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C77B2A462928CBEE0001BD14 /* IntegerExtension.swift */; };
+		C78AFD2F292BF13A00C175B3 /* AddSpentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C78AFD2E292BF13A00C175B3 /* AddSpentViewController.swift */; };
+		C78AFD31292BF3D100C175B3 /* AddSpentPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C78AFD30292BF3D100C175B3 /* AddSpentPresenter.swift */; };
 		C79337F82902C50500251635 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C79337F72902C50500251635 /* AppDelegate.swift */; };
 		C79337FA2902C50500251635 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C79337F92902C50500251635 /* SceneDelegate.swift */; };
 		C79337FC2902C50500251635 /* BackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C79337FB2902C50500251635 /* BackViewController.swift */; };
@@ -34,6 +36,8 @@
 		C706B981290AA9790099D150 /* SpentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpentTableViewCell.swift; sourceTree = "<group>"; };
 		C768656A2928CD8800A84FD9 /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		C77B2A462928CBEE0001BD14 /* IntegerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntegerExtension.swift; sourceTree = "<group>"; };
+		C78AFD2E292BF13A00C175B3 /* AddSpentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSpentViewController.swift; sourceTree = "<group>"; };
+		C78AFD30292BF3D100C175B3 /* AddSpentPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSpentPresenter.swift; sourceTree = "<group>"; };
 		C79337F42902C50500251635 /* SimpleMoneyKeeper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SimpleMoneyKeeper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C79337F72902C50500251635 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C79337F92902C50500251635 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -73,6 +77,39 @@
 			path = "CoreData Models";
 			sourceTree = "<group>";
 		};
+		C78AFD29292BF0DD00C175B3 /* Add Spent Module */ = {
+			isa = PBXGroup;
+			children = (
+				C78AFD2D292BF10B00C175B3 /* Model */,
+				C78AFD2C292BF10500C175B3 /* View */,
+				C78AFD2A292BF0F700C175B3 /* Presenter */,
+			);
+			path = "Add Spent Module";
+			sourceTree = "<group>";
+		};
+		C78AFD2A292BF0F700C175B3 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				C78AFD30292BF3D100C175B3 /* AddSpentPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		C78AFD2C292BF10500C175B3 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C78AFD2E292BF13A00C175B3 /* AddSpentViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		C78AFD2D292BF10B00C175B3 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		C79337EB2902C50500251635 = {
 			isa = PBXGroup;
 			children = (
@@ -95,6 +132,7 @@
 				C706B9722909A5B00099D150 /* CoreData Models */,
 				C7933819290686EE00251635 /* AddNewSpent Module */,
 				C79338132904683D00251635 /* Main Module */,
+				C78AFD29292BF0DD00C175B3 /* Add Spent Module */,
 				C79338122904661600251635 /* Service Layer */,
 				C79338112904660E00251635 /* Constants */,
 				C79338102904660700251635 /* Extensions */,
@@ -280,11 +318,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				C79338022902C50500251635 /* SimpleMoneyKeeper.xcdatamodeld in Sources */,
+				C78AFD31292BF3D100C175B3 /* AddSpentPresenter.swift in Sources */,
 				C7B38D2429228B360041A4CD /* DateExtension.swift in Sources */,
 				C7933824290708EE00251635 /* Colors.swift in Sources */,
 				C7E2FA5C2915B84F00359040 /* DateAndChartCollectionViewCollectionViewCell.swift in Sources */,
 				C768656B2928CD8800A84FD9 /* StringExtension.swift in Sources */,
 				C706B9792909A6F70099D150 /* Spent+CoreDataClass.swift in Sources */,
+				C78AFD2F292BF13A00C175B3 /* AddSpentViewController.swift in Sources */,
 				C706B982290AA9790099D150 /* SpentTableViewCell.swift in Sources */,
 				C7B38D20291BB0DB0041A4CD /* MainPresenter.swift in Sources */,
 				C79337FC2902C50500251635 /* BackViewController.swift in Sources */,
