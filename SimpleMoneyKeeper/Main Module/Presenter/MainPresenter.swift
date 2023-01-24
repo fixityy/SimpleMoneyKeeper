@@ -39,6 +39,7 @@ protocol MainPresenterProtocol: AnyObject {
     func performFetch()
     func presentSpent(index: IndexPath) -> Spent
     func updateFetchResultPredicate(index: Int)
+    func reloadTableView()
     
     func presentAddSpentVC(viewController: UIViewController)
 }
@@ -216,8 +217,13 @@ class MainPresenter: MainPresenterProtocol {
         backDelegate?.reloadCollectionView()
     }
     
+    func reloadTableView() {
+        frontDelegate?.updateTableView()
+    }
+    
     func presentAddSpentVC(viewController: UIViewController) {
         let addSpentPresenter = AddSpentPresenter()
+        addSpentPresenter.mainPresenter = self
         let addSpentVC = AddSpentViewController(with: addSpentPresenter)
         viewController.present(addSpentVC, animated: true)
     }

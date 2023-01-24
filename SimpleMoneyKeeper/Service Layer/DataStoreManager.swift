@@ -34,7 +34,7 @@ class DataStoreManager {
         }
     }
     
-    func addNewSpent(date: Date, category: String, categoryIcon: String, spentAmount: Int64) {
+    func addNewSpent(date: Date, category: String, categoryIcon: String, spentAmount: Int64, note: String) {
         let spent = Spent(context: context)
         
         spent.date = date
@@ -52,6 +52,7 @@ class DataStoreManager {
         spent.categoryIconStr = categoryIcon
         spent.spentAmount = spentAmount
         spent.uuid = UUID().uuidString
+        spent.note = note
         saveContext()
     }
 }

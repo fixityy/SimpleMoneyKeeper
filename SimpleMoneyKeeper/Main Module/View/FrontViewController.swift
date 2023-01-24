@@ -83,18 +83,6 @@ class FrontViewController: UIViewController, FrontViewProtocol {
     }
     
     @objc private func addButtonTapped() {
-        
-//        let categorise = [["Car", "car"], ["Products", "cart"], ["Gifts", "gift"], ["Entertainment", "film"]]
-//
-//        let arrRandomIndex = Int.random(in: 0...3)
-//        let randomNumber = Double.random(in: -12650000...12650000)
-//
-//        let date = Date(timeIntervalSinceNow: randomNumber)
-//
-//        presenter.dataStoreManager.addNewSpent(date: date, category: categorise[arrRandomIndex][0], categoryIcon: categorise[arrRandomIndex][1], spentAmount: Int64.random(in: 100...350000))
-//        tableView.reloadData()
-//        presenter.reloadBackVCCollectionView()
-        
         presenter.presentAddSpentVC(viewController: self)
     }
 }

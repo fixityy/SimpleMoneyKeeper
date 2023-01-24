@@ -102,7 +102,7 @@ extension BackViewController: UICollectionViewDelegate, UICollectionViewDataSour
         cell.pieChart.centerAttributedText = presenter.presentDate(at: indexPath.row)
         
         dateStr = presenter.presentDate(at: indexPath.row)
-
+        
         return cell
     }
     
@@ -112,29 +112,28 @@ extension BackViewController: UICollectionViewDelegate, UICollectionViewDataSour
     
     //Adding next date to dataSource
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-                
-        guard let oldIndexPath = collectionView.indexPathsForVisibleItems.first else { return }
-
-        if oldIndexPath.row < indexPath.row && (presenter.datesArray.count - (oldIndexPath.row + 1)) == 5 {
-            presenter.addNextDate()
-        }
         
+//        guard let oldIndexPath = collectionView.indexPathsForVisibleItems.first else { return }
+
+//        if oldIndexPath.row < indexPath.row { //}&& (presenter.datesArray.count - (oldIndexPath.row + 1)) == 5 {
+//            presenter.addNextDate()
+//        }
+
 //        guard let cell = cell as? DateAndChartCollectionViewCollectionViewCell else { return }
 //        cell.pieChart.animate(xAxisDuration: 1)
     }
     
-    //Adding previous date to dataSource
+    //Adding previous and next date to dataSource
     func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         
         guard let newIndexPath = collectionView.indexPathsForVisibleItems.first else { return }
 
         dateStr = presenter.presentDate(at: newIndexPath.row)
 
-//        print(newIndexPath.row)
-                
-        if newIndexPath.row < indexPath.row && newIndexPath.row == 4 {
+        if newIndexPath.row < indexPath.row { //} && newIndexPath.row == 4 {
             presenter.addPreviousDate(at: newIndexPath)
         } else {
+            presenter.addNextDate()
             presenter.updateFetchResultPredicate(index: newIndexPath.row)
         }
         

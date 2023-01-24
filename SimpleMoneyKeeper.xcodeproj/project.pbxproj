@@ -10,6 +10,10 @@
 		C706B9792909A6F70099D150 /* Spent+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C706B9772909A6F70099D150 /* Spent+CoreDataClass.swift */; };
 		C706B97A2909A6F70099D150 /* Spent+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C706B9782909A6F70099D150 /* Spent+CoreDataProperties.swift */; };
 		C706B982290AA9790099D150 /* SpentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C706B981290AA9790099D150 /* SpentTableViewCell.swift */; };
+		C71EAABB296FEAE900293154 /* CategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71EAABA296FEAE900293154 /* CategoryTableViewCell.swift */; };
+		C71EAABD296FEEA900293154 /* SpentCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71EAABC296FEEA900293154 /* SpentCategory.swift */; };
+		C71EAABF296FF86C00293154 /* UITextViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71EAABE296FF86C00293154 /* UITextViewExtension.swift */; };
+		C71EAAC12970540200293154 /* UITextFieldExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C71EAAC02970540200293154 /* UITextFieldExtension.swift */; };
 		C768656B2928CD8800A84FD9 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C768656A2928CD8800A84FD9 /* StringExtension.swift */; };
 		C77B2A41292799000001BD14 /* Charts in Frameworks */ = {isa = PBXBuildFile; productRef = C77B2A40292799000001BD14 /* Charts */; };
 		C77B2A472928CBEE0001BD14 /* IntegerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C77B2A462928CBEE0001BD14 /* IntegerExtension.swift */; };
@@ -22,7 +26,6 @@
 		C79338042902C50600251635 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C79338032902C50600251635 /* Assets.xcassets */; };
 		C79338072902C50600251635 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C79338052902C50600251635 /* LaunchScreen.storyboard */; };
 		C79338182904687000251635 /* FrontViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C79338172904687000251635 /* FrontViewController.swift */; };
-		C793381E29068E4900251635 /* AddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C793381D29068E4900251635 /* AddViewController.swift */; };
 		C7933822290707BB00251635 /* DataStoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7933821290707BB00251635 /* DataStoreManager.swift */; };
 		C7933824290708EE00251635 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7933823290708EE00251635 /* Colors.swift */; };
 		C7B38D20291BB0DB0041A4CD /* MainPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B38D1F291BB0DB0041A4CD /* MainPresenter.swift */; };
@@ -34,6 +37,10 @@
 		C706B9772909A6F70099D150 /* Spent+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Spent+CoreDataClass.swift"; sourceTree = "<group>"; };
 		C706B9782909A6F70099D150 /* Spent+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Spent+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		C706B981290AA9790099D150 /* SpentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpentTableViewCell.swift; sourceTree = "<group>"; };
+		C71EAABA296FEAE900293154 /* CategoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryTableViewCell.swift; sourceTree = "<group>"; };
+		C71EAABC296FEEA900293154 /* SpentCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpentCategory.swift; sourceTree = "<group>"; };
+		C71EAABE296FF86C00293154 /* UITextViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextViewExtension.swift; sourceTree = "<group>"; };
+		C71EAAC02970540200293154 /* UITextFieldExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldExtension.swift; sourceTree = "<group>"; };
 		C768656A2928CD8800A84FD9 /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		C77B2A462928CBEE0001BD14 /* IntegerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntegerExtension.swift; sourceTree = "<group>"; };
 		C78AFD2E292BF13A00C175B3 /* AddSpentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSpentViewController.swift; sourceTree = "<group>"; };
@@ -48,7 +55,6 @@
 		C79338082902C50600251635 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C793380F2902C6F600251635 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		C79338172904687000251635 /* FrontViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrontViewController.swift; sourceTree = "<group>"; };
-		C793381D29068E4900251635 /* AddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewController.swift; sourceTree = "<group>"; };
 		C7933821290707BB00251635 /* DataStoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStoreManager.swift; sourceTree = "<group>"; };
 		C7933823290708EE00251635 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		C7B38D1F291BB0DB0041A4CD /* MainPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPresenter.swift; sourceTree = "<group>"; };
@@ -99,6 +105,7 @@
 			isa = PBXGroup;
 			children = (
 				C78AFD2E292BF13A00C175B3 /* AddSpentViewController.swift */,
+				C71EAABA296FEAE900293154 /* CategoryTableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -106,6 +113,7 @@
 		C78AFD2D292BF10B00C175B3 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				C71EAABC296FEEA900293154 /* SpentCategory.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -130,7 +138,6 @@
 			isa = PBXGroup;
 			children = (
 				C706B9722909A5B00099D150 /* CoreData Models */,
-				C7933819290686EE00251635 /* AddNewSpent Module */,
 				C79338132904683D00251635 /* Main Module */,
 				C78AFD29292BF0DD00C175B3 /* Add Spent Module */,
 				C79338122904661600251635 /* Service Layer */,
@@ -152,6 +159,8 @@
 				C7B38D2329228B360041A4CD /* DateExtension.swift */,
 				C77B2A462928CBEE0001BD14 /* IntegerExtension.swift */,
 				C768656A2928CD8800A84FD9 /* StringExtension.swift */,
+				C71EAABE296FF86C00293154 /* UITextViewExtension.swift */,
+				C71EAAC02970540200293154 /* UITextFieldExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -202,38 +211,6 @@
 			sourceTree = "<group>";
 		};
 		C79338162904685700251635 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		C7933819290686EE00251635 /* AddNewSpent Module */ = {
-			isa = PBXGroup;
-			children = (
-				C793381C2906871900251635 /* Model */,
-				C793381B2906871500251635 /* View */,
-				C793381A290686FD00251635 /* Presenter */,
-			);
-			path = "AddNewSpent Module";
-			sourceTree = "<group>";
-		};
-		C793381A290686FD00251635 /* Presenter */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Presenter;
-			sourceTree = "<group>";
-		};
-		C793381B2906871500251635 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				C793381D29068E4900251635 /* AddViewController.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		C793381C2906871900251635 /* Model */ = {
 			isa = PBXGroup;
 			children = (
 			);
@@ -317,6 +294,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C71EAABD296FEEA900293154 /* SpentCategory.swift in Sources */,
 				C79338022902C50500251635 /* SimpleMoneyKeeper.xcdatamodeld in Sources */,
 				C78AFD31292BF3D100C175B3 /* AddSpentPresenter.swift in Sources */,
 				C7B38D2429228B360041A4CD /* DateExtension.swift in Sources */,
@@ -328,13 +306,15 @@
 				C706B982290AA9790099D150 /* SpentTableViewCell.swift in Sources */,
 				C7B38D20291BB0DB0041A4CD /* MainPresenter.swift in Sources */,
 				C79337FC2902C50500251635 /* BackViewController.swift in Sources */,
-				C793381E29068E4900251635 /* AddViewController.swift in Sources */,
 				C706B97A2909A6F70099D150 /* Spent+CoreDataProperties.swift in Sources */,
 				C79338182904687000251635 /* FrontViewController.swift in Sources */,
 				C7933822290707BB00251635 /* DataStoreManager.swift in Sources */,
 				C77B2A472928CBEE0001BD14 /* IntegerExtension.swift in Sources */,
+				C71EAAC12970540200293154 /* UITextFieldExtension.swift in Sources */,
 				C79337F82902C50500251635 /* AppDelegate.swift in Sources */,
 				C79337FA2902C50500251635 /* SceneDelegate.swift in Sources */,
+				C71EAABB296FEAE900293154 /* CategoryTableViewCell.swift in Sources */,
+				C71EAABF296FF86C00293154 /* UITextViewExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

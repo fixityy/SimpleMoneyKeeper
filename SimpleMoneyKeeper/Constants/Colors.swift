@@ -10,4 +10,5 @@ import UIKit
 
 struct Colors {
     static let mainAccentColor = UIColor.systemYellow
+    static let tableViewBackground = UIColor(named: "TableViewBackground")
 }

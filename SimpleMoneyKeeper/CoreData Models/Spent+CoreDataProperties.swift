@@ -2,7 +2,7 @@
 //  Spent+CoreDataProperties.swift
 //  SimpleMoneyKeeper
 //
-//  Created by Roman Belov on 14.11.2022.
+//  Created by Roman Belov on 23.01.2023.
 //
 //
 

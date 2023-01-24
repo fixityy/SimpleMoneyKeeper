@@ -1,15 +1,15 @@
 //
-//  SpentTableViewCell.swift
+//  CategoryTableViewCell.swift
 //  SimpleMoneyKeeper
 //
-//  Created by Roman Belov on 27.10.2022.
+//  Created by Roman Belov on 12.01.2023.
 //
 
 import UIKit
 
-class SpentTableViewCell: UITableViewCell {
+class CategoryTableViewCell: UITableViewCell {
     
-    static let reuseId = "SpentTableViewCell"
+    static let reuseId = "CategoryTableViewCell"
     
     lazy var containerImageView: UIView = {
         let view = UIView()
@@ -38,24 +38,12 @@ class SpentTableViewCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
-    lazy var amountlabel: UILabel = {
-        let label = UILabel()
-        label.textAlignment = .right
-        label.textColor = .label
-        label.font = .systemFont(ofSize: 16)
-        label.numberOfLines = 0
-        label.lineBreakMode = .byWordWrapping
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
+
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         contentView.addSubview(containerImageView)
         contentView.addSubview(categoryLabel)
-        contentView.addSubview(amountlabel)
         containerImageView.addSubview(categoryIcon)
         makeConstraints()
     }
@@ -78,12 +66,9 @@ class SpentTableViewCell: UITableViewCell {
             categoryIcon.trailingAnchor.constraint(equalTo: containerImageView.trailingAnchor, constant: -8),
             
             categoryLabel.leadingAnchor.constraint(equalTo: containerImageView.trailingAnchor, constant: 16),
-            categoryLabel.trailingAnchor.constraint(equalTo: amountlabel.leadingAnchor, constant: -8),
+            categoryLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             categoryLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            
-            amountlabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            amountlabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
         ])
     }
-    
+
 }
