@@ -455,7 +455,7 @@ extension AddSpentViewController: UITableViewDelegate, UITableViewDataSource {
 
 //MARK: UITextViewDelegate
 extension AddSpentViewController: UITextViewDelegate {
-    //убираем placeholder, когда начинается ввод текста
+    //remove placeholder, when editing begins
     func textViewDidBeginEditing(_ textView: UITextView) {
         if textView.textColor == UIColor.systemGray3 {
             textView.text = nil
@@ -463,7 +463,7 @@ extension AddSpentViewController: UITextViewDelegate {
         }        
     }
     
-    //возвращаем placeholder, если ничего не ввели
+    //return placeholder, if nothing typed
     func textViewDidEndEditing(_ textView: UITextView) {
         if textView.text.isEmpty {
             textView.text = "Добавьте комментарий"

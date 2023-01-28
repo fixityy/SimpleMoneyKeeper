@@ -110,19 +110,6 @@ extension BackViewController: UICollectionViewDelegate, UICollectionViewDataSour
         CGSize(width: dateAndChartCollectionView.frame.width, height: dateAndChartCollectionView.frame.height)
     }
     
-    //Adding next date to dataSource
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        
-//        guard let oldIndexPath = collectionView.indexPathsForVisibleItems.first else { return }
-
-//        if oldIndexPath.row < indexPath.row { //}&& (presenter.datesArray.count - (oldIndexPath.row + 1)) == 5 {
-//            presenter.addNextDate()
-//        }
-
-//        guard let cell = cell as? DateAndChartCollectionViewCollectionViewCell else { return }
-//        cell.pieChart.animate(xAxisDuration: 1)
-    }
-    
     //Adding previous and next date to dataSource
     func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         
@@ -130,7 +117,7 @@ extension BackViewController: UICollectionViewDelegate, UICollectionViewDataSour
 
         dateStr = presenter.presentDate(at: newIndexPath.row)
 
-        if newIndexPath.row < indexPath.row { //} && newIndexPath.row == 4 {
+        if newIndexPath.row < indexPath.row {
             presenter.addPreviousDate(at: newIndexPath)
         } else {
             presenter.addNextDate()
@@ -155,7 +142,7 @@ extension BackViewController: ChartViewDelegate {
         
 
         if highlight == pieChartLastHighlited {
-            //unhighlight all sections
+            //Unhighlight all sections
             pieChart.highlightValues(nil)
             pieChart.centerAttributedText = dateStr
             pieChartLastHighlited = nil

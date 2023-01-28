@@ -21,13 +21,17 @@ class AddSpentPresenter: AddSpentPresenterProtocol {
     
     weak var mainPresenter: MainPresenterProtocol?
     
+    var dataStoreManager: DataStoreManager
+    
     var categories: [SpentCategory] {
         get {
             return [SpentCategory(category: "Автомобиль", categoryIconStr: "car"), SpentCategory(category: "Покупки", categoryIconStr: "cart"), SpentCategory(category: "Подарки", categoryIconStr: "gift"), SpentCategory(category: "Развлечения", categoryIconStr: "film"), SpentCategory(category: "Автомобиль", categoryIconStr: "car"), SpentCategory(category: "Покупки", categoryIconStr: "cart"), SpentCategory(category: "Подарки", categoryIconStr: "gift"), SpentCategory(category: "Развлечения", categoryIconStr: "film"), SpentCategory(category: "Автомобиль", categoryIconStr: "car"), SpentCategory(category: "Покупки", categoryIconStr: "cart"), SpentCategory(category: "Подарки", categoryIconStr: "gift"), SpentCategory(category: "Развлечения", categoryIconStr: "film")]
         }
     }
     
-    let dataStoreManager = DataStoreManager()
+    init(dataStoreManager: DataStoreManager) {
+        self.dataStoreManager = dataStoreManager
+    }
     
     func presentCategory(index: IndexPath) -> SpentCategory {
         return categories[index.row]

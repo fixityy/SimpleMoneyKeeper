@@ -57,6 +57,10 @@ class MainPresenter: MainPresenterProtocol {
         return array
     }()
     
+    func addOrSubtractMonth(month: Int) -> Date {
+        Calendar.current.date(byAdding: .month, value: month, to: Date().localDate())!
+    }
+    
     var decreaseMonth = -6
     var increaseMonth = 6
 
@@ -79,10 +83,6 @@ class MainPresenter: MainPresenterProtocol {
     
     func setBackDelegate(delegate: BackViewProtocol) {
         self.backDelegate = delegate
-    }
-    
-    func addOrSubtractMonth(month: Int) -> Date {
-        Calendar.current.date(byAdding: .month, value: month, to: Date().localDate())!
     }
 
     func addPreviousDate(at newIndexPath: IndexPath) {
@@ -117,6 +117,7 @@ class MainPresenter: MainPresenterProtocol {
         }
     }
     
+    //Prepare Pie Chart crnter text
     func presentDate(at index: Int) -> NSMutableAttributedString{
         let str = datesArray[index].formatted(.dateTime.month(.wide)).capitalizeFirstCharacter() + "\n" + datesArray[index].formatted(.dateTime.year(.defaultDigits)) + "\n" + "\n" + monthrTotalSpent.stringWithSpaceEveryThreeDigits() + "  \u{20BD}"
         
@@ -222,7 +223,7 @@ class MainPresenter: MainPresenterProtocol {
     }
     
     func presentAddSpentVC(viewController: UIViewController) {
-        let addSpentPresenter = AddSpentPresenter()
+        let addSpentPresenter = AddSpentPresenter(dataStoreManager: dataStoreManager)
         addSpentPresenter.mainPresenter = self
         let addSpentVC = AddSpentViewController(with: addSpentPresenter)
         viewController.present(addSpentVC, animated: true)
